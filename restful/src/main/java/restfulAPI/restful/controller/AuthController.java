@@ -2,6 +2,7 @@ package restfulAPI.restful.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +10,10 @@ import restfulAPI.restful.dto.request.LoginUserRequest;
 import restfulAPI.restful.dto.request.RegisterUserRequest;
 import restfulAPI.restful.dto.response.TokenResponse;
 import restfulAPI.restful.dto.response.WebResponse;
+import restfulAPI.restful.entity.User;
 import restfulAPI.restful.service.AuthService;
+
+import javax.print.attribute.standard.Media;
 
 /** Controller terhubung dengan FrontEnd mlalui path dan terhubung ke service */
 /** Bertanggung jawab menangani request HTTP */
@@ -40,5 +44,15 @@ public class AuthController {
     {
         TokenResponse token = authService.login(request);
         return  WebResponse.<TokenResponse>builder().data(token).build();
+    }
+
+
+    @DeleteMapping(
+            path = "/api/auth/logout",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<String> logout(User user)
+    {
+        return WebResponse.<String>builder().data("OK").build();
     }
 }
