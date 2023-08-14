@@ -1,12 +1,11 @@
 package restfulAPI.restful.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import restfulAPI.restful.model.RegisterUserRequest;
-import restfulAPI.restful.repository.UserRepository;
 
-@Service
+import restfulAPI.restful.dto.response.UserResponse;
+import restfulAPI.restful.entity.User;
+
 public interface UserService {
 
-    public void register(RegisterUserRequest request);
+    //Argument Resolver atau dari tokennya
+    public UserResponse getUser(User user);
 }

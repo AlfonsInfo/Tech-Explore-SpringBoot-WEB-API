@@ -9,16 +9,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import restfulAPI.restful.dto.request.RegisterUserRequest;
+import restfulAPI.restful.dto.response.WebResponse;
 import restfulAPI.restful.entity.User;
-import restfulAPI.restful.model.*;
 import restfulAPI.restful.repository.UserRepository;
 import restfulAPI.restful.security.BCrypt;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.MockMvcBuilder.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,7 +45,7 @@ class UserControllerTest {
         request.setName("Test");
 
         mockMvc.perform(
-                post("/api/users")
+                post("/api/auth/register")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))

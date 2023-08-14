@@ -2,30 +2,26 @@ package restfulAPI.restful.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import restfulAPI.restful.model.RegisterUserRequest;
-import restfulAPI.restful.model.WebResponse;
+import restfulAPI.restful.dto.response.UserResponse;
+import restfulAPI.restful.dto.response.WebResponse;
+import restfulAPI.restful.entity.User;
 import restfulAPI.restful.service.UserService;
 
-import java.awt.*;
-
-/** Controller terhubung dengan FrontEnd mlalui path dan terhubung ke service */
-/** Bertanggung jawab menangani request HTTP */
 @RestController
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    @PostMapping(
-            path = "/api/users",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @Autowired
+    UserService userService;
+
+    @GetMapping(
+            path = "/api/users/current",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<String> register(@RequestBody RegisterUserRequest request)
+    public WebResponse<UserResponse> get(User user)
     {
-        userService.register(request);
-        return WebResponse.<String>builder().data("OK").build();
+        UserResponse userResponse = userService.getUser(user);
+        return WebResponse.<UserResponse>builder().data(userResponse).build();
     }
 }

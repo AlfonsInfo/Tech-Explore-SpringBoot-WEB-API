@@ -8,4 +8,3 @@ Entity: Merupakan representasi objek data dari database. Ini sering berkaitan de
 
 Model: Representasi Data Transfer Object (DTO) yang digunakan untuk berkomunikasi antara berbagai lapisan dalam aplikasi, terutama antara backend dan frontend. Model ini berisi data yang perlu ditampilkan atau dimanipulasi oleh pengguna. Pemisahan model dari entitas database memungkinkan Anda untuk mengontrol data yang dikirimkan ke frontend dengan lebih baik.
 
-Dengan menggunakan arsit

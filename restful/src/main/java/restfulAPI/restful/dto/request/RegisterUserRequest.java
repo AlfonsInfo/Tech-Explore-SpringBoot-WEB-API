@@ -1,17 +1,15 @@
-package restfulAPI.restful.model;
+package restfulAPI.restful.dto.request;
 
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 
-/** Model Representasi Data Transport Object */
+/** Model Representasi Data Transport Object ...*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package restfulAPI.restful.model;
+package restfulAPI.restful.dto.response;
 
 
 import lombok.AllArgsConstructor;
@@ -7,14 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class WebResponse <T>{
-
-    private T data;
-
-    private String errors;
-
-
+public class UserResponse {
+    private String username;
+    private String name;
 }
