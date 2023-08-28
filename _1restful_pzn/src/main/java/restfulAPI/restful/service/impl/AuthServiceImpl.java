@@ -41,7 +41,7 @@ public class    AuthServiceImpl implements AuthService {
 
         //Cek Apakah sudah ada datanya di Database
         if(userRepository.existsById(request.getUsername())){
-//            throw new ApiException("Username already registered");
+//            throw new ApiException("Username already regi  stered");
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username Already Registered");
         }
 

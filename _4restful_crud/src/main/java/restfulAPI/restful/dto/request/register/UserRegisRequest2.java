@@ -1,4 +1,4 @@
-package restfulAPI.restful.dto.request;
+package restfulAPI.restful.dto.request.register;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

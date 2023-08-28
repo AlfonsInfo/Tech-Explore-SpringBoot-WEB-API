@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ApiResponse <T>  {
-    private String status;
-    private String message;
-    private T data;
-    private String errors;
+    private T responseData;
+    private ErrorSchema errorSchema;
 }

@@ -15,5 +15,5 @@ public class UserRegisResponse {
     private String username;
     private String email;
     private String role;
-    private byte[] fotoProfil;
+//    private byte[] fotoProfil;
 }

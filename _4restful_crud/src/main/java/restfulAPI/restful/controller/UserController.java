@@ -6,18 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import restfulAPI.restful.dto.ApiResponse;
-import restfulAPI.restful.dto.request.UserRegisRequest;
-import restfulAPI.restful.dto.request.UserRegisRequest2;
+import restfulAPI.restful.dto.ErrorMessageResponse;
+import restfulAPI.restful.dto.ErrorSchema;
+import restfulAPI.restful.dto.request.register.UserRegisRequest;
+import restfulAPI.restful.dto.request.register.UserRegisRequest2;
 import restfulAPI.restful.dto.response.UserRegisResponse;
 import restfulAPI.restful.service.UserService;
 import restfulAPI.restful.service.ValidationService;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 @RestController
 @RequestMapping("api")
@@ -35,12 +33,7 @@ public class UserController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<UserRegisResponse> register(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("email") String email,
-            @RequestParam("role") String role,
-            @RequestPart("fotoProfil") MultipartFile file
+    public ResponseEntity<UserRegisResponse> registerWithRequestParam(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("email") String email,@RequestParam("role") String role,@RequestPart("fotoProfil") MultipartFile file
     ) {
         UserRegisRequest userRegisRequest = new UserRegisRequest();
             try {
@@ -67,25 +60,16 @@ public class UserController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ApiResponse<UserRegisResponse> register2(
-            @ModelAttribute UserRegisRequest2 request
-    )
+    public ApiResponse<UserRegisResponse> registerWithModalAttribute(@ModelAttribute UserRegisRequest2 request)
     {
         validationService.validate(request);
         System.out.println("Requestnya ini" + request);
 
         UserRegisResponse response = userService.register2(request);
 
+        ErrorSchema errorSchema = new ErrorSchema();
+        errorSchema.setSuccessResponse();
 
-        return  new  ApiResponse<>(
-                "200",
-                "Sukses Register",
-                //new UserRegisResponse()
-                response,
-                null
-        );
+        return  new  ApiResponse<UserRegisResponse>(response, errorSchema);
     }
-
-
-
 }

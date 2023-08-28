@@ -1,4 +1,4 @@
-package restfulAPI.restful.utils.service;
+package restfulAPI.restful.utils.security;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

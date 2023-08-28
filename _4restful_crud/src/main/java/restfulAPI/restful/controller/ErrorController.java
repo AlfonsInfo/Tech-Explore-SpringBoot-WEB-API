@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
-import restfulAPI.restful.dto.ApiResponse;
+import restfulAPI.restful.dto.BaseResponse;
+import restfulAPI.restful.dto.ErrorSchema;
 
 
 //Exception di handle terpusat di RestController Advice
@@ -16,16 +17,24 @@ public class ErrorController {
 
     //Menangkap Exception Constraint Violation ?
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ApiResponse<String>> constraintViolationException(ConstraintViolationException exception)
+    public ResponseEntity<BaseResponse> constraintViolationException(ConstraintViolationException exception)
     {
+        BaseResponse baseResponse = new BaseResponse();
+        ErrorSchema errorSchema = new ErrorSchema();
+        errorSchema.setErrorResponse("Gagal", exception.getMessage());
+        baseResponse.setErrorSchema(errorSchema);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.<String>builder().errors(exception.getMessage()).build());
+                .body(baseResponse);
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ApiResponse<String>> apiException(ResponseStatusException exception)
+    public ResponseEntity<BaseResponse> apiException(ResponseStatusException exception)
     {
-        return ResponseEntity.status(exception.getStatusCode())
-                .body(ApiResponse.<String>builder().errors(exception.getMessage()).build());
+        BaseResponse baseResponse = new BaseResponse();
+        ErrorSchema errorSchema = new ErrorSchema();
+        errorSchema.setErrorResponse("Gagal", exception.getMessage());
+        baseResponse.setErrorSchema(errorSchema);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(baseResponse);
     }
 }
