@@ -1,5 +1,7 @@
 package restfulAPI.restful.controller;
 
+import io.swagger.v3.oas.models.headers.Header;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import restfulAPI.restful.dto.request.register.UserRegisRequest2;
 import restfulAPI.restful.dto.response.UserRegisResponse;
 import restfulAPI.restful.service.UserService;
 import restfulAPI.restful.service.ValidationService;
+import restfulAPI.restful.utils.security.HeaderCheckUtil;
 
 @RestController
 @RequestMapping("api")
@@ -27,17 +30,19 @@ public class UserController {
     @Autowired
     private ValidationService validationService;
 
+
+    @Autowired
+    private HeaderCheckUtil headerCheckUtil;
     //Menggunakan Request Param dan Request Part
     @PostMapping(
             path = "/auth/register",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<UserRegisResponse> registerWithRequestParam(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("email") String email,@RequestParam("role") String role,@RequestPart("fotoProfil") MultipartFile file
+    public ResponseEntity<UserRegisResponse> registerWithRequestParam(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email, @RequestParam("role") String role, @RequestPart("fotoProfil") MultipartFile file
     ) {
         UserRegisRequest userRegisRequest = new UserRegisRequest();
             try {
-
                 userRegisRequest.setUsername(username);
                 userRegisRequest.setPassword(password);
                 userRegisRequest.setEmail(email);
@@ -60,8 +65,11 @@ public class UserController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ApiResponse<UserRegisResponse> registerWithModalAttribute(@ModelAttribute UserRegisRequest2 request)
+    public ApiResponse<UserRegisResponse> registerWithModalAttribute(HttpServletRequest ServletRequest,@ModelAttribute UserRegisRequest2 request)
     {
+        //factory utils for abstraction
+//        System.out.println("Header : " + ServletRequest.getHeader("USER_UUID"));
+        headerCheckUtil.usernameCheck(ServletRequest.getHeader("USER_UUID"));
         validationService.validate(request);
         System.out.println("Requestnya ini" + request);
 
