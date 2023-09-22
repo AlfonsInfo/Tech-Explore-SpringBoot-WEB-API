@@ -33,7 +33,7 @@ public class UserController {
 
     @Autowired
     private HeaderCheckUtil headerCheckUtil;
-    //Menggunakan Request Param dan Request Part
+    //Menggunakan Request Param` dan Request Part
     @PostMapping(
             path = "/auth/register",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,

@@ -23,7 +23,7 @@
 
 
 # Ordered
-- Pengurutan pembuatan bean
+- Pengurutan pembuatan beanA
 
 
 # Aware
