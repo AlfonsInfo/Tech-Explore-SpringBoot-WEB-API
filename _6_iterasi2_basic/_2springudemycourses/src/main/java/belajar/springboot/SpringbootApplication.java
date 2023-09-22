@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.io.BufferedReader;
-
+import java.io.IOException;
 
 
 //Manually include package outside basePackage of main
@@ -28,35 +28,34 @@ public class SpringbootApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(String[] args)
 	{
-		return args1 -> {
+		return args1 -> {/*runCommandLineCRUDExample();*/};
+	}
 
-//			System.out.println("Hello from command line runner, execute something here !!!");
-
-			System.out.println("1. Create Random Student");
-			System.out.println("2. Read Data Student");
-			System.out.println("3. Update Data Student");
-			System.out.println("4. Delete Data Student");
-			System.out.println("Pilih :");
-			String input = reader.readLine();
-			switch (input){
-				case "1" :
-					studentService.createRandomStudent();
-					break;
-				case "2" :
-					studentService.readAllStudent();
-					break;
-				case "3" :
-					studentService.readAllStudent();
-					System.out.println("Masukkan nomor data yang ingin di update "); input = reader.readLine();
-					studentService.update(Integer.parseInt(input));
-					break;
-				case "4" :
-					studentService.readAllStudent();
-					System.out.println("Masukkan nomor data yang ingin di update "); input = reader.readLine();
-					studentService.delete(Integer.parseInt(input));
-					break;
-			}
-		};
+	public  void runCommandLineCRUDExample () throws IOException {
+		System.out.println("1. Create Random Student");
+		System.out.println("2. Read Data Student");
+		System.out.println("3. Update Data Student");
+		System.out.println("4. Delete Data Student");
+		System.out.println("Pilih :");
+		String input = reader.readLine();
+		switch (input){
+			case "1" :
+				studentService.createRandomStudent();
+				break;
+			case "2" :
+				studentService.readAllStudent();
+				break;
+			case "3" :
+				studentService.readAllStudent();
+				System.out.println("Masukkan nomor data yang ingin di update "); input = reader.readLine();
+				studentService.update(Integer.parseInt(input));
+				break;
+			case "4" :
+				studentService.readAllStudent();
+				System.out.println("Masukkan nomor data yang ingin di update "); input = reader.readLine();
+				studentService.delete(Integer.parseInt(input));
+				break;
+		}
 	}
 
 }
