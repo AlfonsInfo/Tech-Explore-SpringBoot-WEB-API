@@ -1,4 +1,4 @@
-package belajar.util;
+package belajar.util.generator;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

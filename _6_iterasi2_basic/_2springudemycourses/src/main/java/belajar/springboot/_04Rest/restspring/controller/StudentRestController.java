@@ -1,9 +1,9 @@
-package belajar.springboot._04Rest.controller;
+package belajar.springboot._04Rest.restspring.controller;
 
 
-import belajar.springboot._04Rest.entity.student.DummyStudent;
-import belajar.springboot._04Rest.entity.student.StaticDummyStudent;
-import belajar.springboot._04Rest.entity.student.Student;
+import belajar.springboot._04Rest.restspring.entity.student.DummyStudent;
+import belajar.springboot._04Rest.restspring.entity.student.StaticDummyStudent;
+import belajar.springboot._04Rest.restspring.entity.student.Student;
 import belajar.util.exception.EntityNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package belajar.springboot._04Rest.entity.student;
+package belajar.springboot._04Rest.restspring.entity.student;
 
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;

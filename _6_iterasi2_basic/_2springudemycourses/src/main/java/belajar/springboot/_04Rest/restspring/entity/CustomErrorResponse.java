@@ -1,4 +1,4 @@
-package belajar.springboot._04Rest.entity;
+package belajar.springboot._04Rest.restspring.entity;
 
 
 import lombok.AllArgsConstructor;

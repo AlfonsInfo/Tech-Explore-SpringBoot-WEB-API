@@ -19,7 +19,7 @@ public class Student {
 
     @jakarta.persistence.Id
     @GeneratedValue(generator = "custom-id")
-    @GenericGenerator(name="custom-id",strategy = "belajar.util.CustomIdGenerator")
+    @GenericGenerator(name="custom-id",strategy = "belajar.util.generator.CustomIdGenerator")
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id") // lombok
     private String Id;
