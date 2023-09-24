@@ -1,9 +1,9 @@
-package belajar.springboot._04Rest.restspring.util;
+package belajar.springboot._04Rest.restspring.util.logging;
 
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class FileNameExtractor {
     public String extractFileName(String filePath){
         int lastIndexOfSlash = filePath.lastIndexOf("\\");

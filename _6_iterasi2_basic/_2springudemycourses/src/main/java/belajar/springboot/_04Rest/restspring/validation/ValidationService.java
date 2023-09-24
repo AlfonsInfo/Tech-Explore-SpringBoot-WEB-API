@@ -32,7 +32,7 @@ public class ValidationService {
     public void validate(CreateCollegeStudentRequest request){
         log.info("Validation Data For Create College");
         isValidField(request.getNamaDepan(), "nama_depan");
-        isValidField(request.getAngkatan(), "angkatan");
+//        isValidField(request.getAngkatan(), "angkatan");
         isValidField(request.getJurusan(), "jurusan");
         log.info("End of validation");
     }

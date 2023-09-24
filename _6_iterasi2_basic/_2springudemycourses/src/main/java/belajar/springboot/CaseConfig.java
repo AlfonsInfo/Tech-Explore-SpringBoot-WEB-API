@@ -1,4 +1,4 @@
-package belajar.util.config;
+package belajar.springboot;
 
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
