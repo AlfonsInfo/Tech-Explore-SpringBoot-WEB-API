@@ -1,7 +1,7 @@
-package belajar.springboot._04Rest.restspring.validation;
+package belajar.springboot._04Rest.restspring.util.validation;
 
 import belajar.springboot._04Rest.restspring.dto.request.CreateCollegeStudentRequest;
-import belajar.springboot._04Rest.restspring.exception.CreateCollegeException;
+import belajar.springboot._04Rest.restspring.util.exception.CreateCollegeException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;

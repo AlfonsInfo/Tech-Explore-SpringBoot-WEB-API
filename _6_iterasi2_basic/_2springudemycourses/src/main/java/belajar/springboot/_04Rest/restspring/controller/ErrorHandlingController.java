@@ -2,7 +2,7 @@ package belajar.springboot._04Rest.restspring.controller;
 
 
 import belajar.springboot._04Rest.restspring.entity.CustomErrorResponse;
-import belajar.springboot._04Rest.restspring.exception.CreateCollegeException;
+import belajar.springboot._04Rest.restspring.util.exception.CreateCollegeException;
 import belajar.util.exception.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

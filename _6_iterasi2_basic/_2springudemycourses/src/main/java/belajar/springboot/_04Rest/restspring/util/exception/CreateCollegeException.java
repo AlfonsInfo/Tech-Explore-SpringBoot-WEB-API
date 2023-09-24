@@ -1,4 +1,4 @@
-package belajar.springboot._04Rest.restspring.exception;
+package belajar.springboot._04Rest.restspring.util.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

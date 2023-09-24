@@ -4,8 +4,10 @@ package belajar.springboot._04Rest.restspring.controller;
 import belajar.springboot._04Rest.restspring.dto.ApiResponse;
 import belajar.springboot._04Rest.restspring.dto.request.CreateCollegeStudentRequest;
 import belajar.springboot._04Rest.restspring.dto.request.ReadCollegeStudentRequest;
+import belajar.springboot._04Rest.restspring.dto.request.UpdateCollegeStudentRequest;
 import belajar.springboot._04Rest.restspring.dto.response.CreateCollegeStudentResponse;
 import belajar.springboot._04Rest.restspring.dto.response.ReadCollegeStudentResponse;
+import belajar.springboot._04Rest.restspring.entity.CollegeStudent.CollegeStudent;
 import belajar.springboot._04Rest.restspring.service.CollegeStudentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,13 @@ public class CollegeStudentController {
                 .build();
 
         return collegeStudentService.readCollegeStudent(request);
+    }
+
+
+    @PutMapping(path = "/student/{npm}")
+    public ApiResponse<CollegeStudent> updateCollegeStudent(HttpServletRequest httpServletRequest, @PathVariable("npm") String npm,@RequestBody UpdateCollegeStudentRequest request)
+    {
+        System.out.println(npm);
+        return collegeStudentService.updateCollegeStudent(npm,request);
     }
 }

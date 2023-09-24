@@ -4,25 +4,22 @@ import belajar.springboot._04Rest.restspring.dto.ApiResponse;
 import belajar.springboot._04Rest.restspring.dto.ErrorSchema;
 import belajar.springboot._04Rest.restspring.dto.request.CreateCollegeStudentRequest;
 import belajar.springboot._04Rest.restspring.dto.request.ReadCollegeStudentRequest;
+import belajar.springboot._04Rest.restspring.dto.request.UpdateCollegeStudentRequest;
 import belajar.springboot._04Rest.restspring.dto.response.CreateCollegeStudentResponse;
 import belajar.springboot._04Rest.restspring.dto.response.ReadCollegeStudentResponse;
 import belajar.springboot._04Rest.restspring.entity.CollegeStudent.CollegeStudent;
-import belajar.springboot._04Rest.restspring.entity.constant.Constant;
 import belajar.springboot._04Rest.restspring.repository.CollegeStudentRepository;
-import belajar.springboot._04Rest.restspring.util.logging.flyweight.CustomTextDecorator;
-import belajar.springboot._04Rest.restspring.util.logging.FileNameExtractor;
 import belajar.springboot._04Rest.restspring.util.logging.LogHelper;
-import belajar.springboot._04Rest.restspring.validation.ValidationService;
+import belajar.springboot._04Rest.restspring.util.validation.ValidationService;
 import belajar.util.config.PathConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -92,23 +89,15 @@ public class CollegeStudentService {
         try{
             ReadCollegeStudentResponse responseData  = new ReadCollegeStudentResponse();
 
-            List<CollegeStudent> tempListCollegeStudent = new ArrayList<>();
-//            if(
-//                    Objects.nonNull(request.getNomorIndukMahasiswa()) ||
-//                    Objects.nonNull(request.getNamaDepan()) ||
-//                    Objects.nonNull(request.getNamaBelakang()) ||
-//                    Objects.nonNull(request.getAngkatan()) ||
-//                    Objects.nonNull(request.getJurusan())
-//            ){
-                tempListCollegeStudent = collegeStudentRepository.getFiltered(
+            List<CollegeStudent> tempListCollegeStudent =
+                    collegeStudentRepository.getFiltered(
                         request.getNomorIndukMahasiswa(),
                         request.getNamaDepan(),
                         request.getNamaBelakang(),
                         request.getJurusan(),
-                        request.getAngkatan());
-//            }else{
-//                tempListCollegeStudent = collegeStudentRepository.findAll();
-//            }
+                        request.getAngkatan()
+                    );
+
             responseData.setData(tempListCollegeStudent);
             ErrorSchema errorSchema = new ErrorSchema();
             errorSchema.setSuccessResponse("Sukses Membaca Data", "Success Read Data");
@@ -121,4 +110,34 @@ public class CollegeStudentService {
             return null;
         }
     }
+
+    public ApiResponse<CollegeStudent> updateCollegeStudent(String npm, UpdateCollegeStudentRequest request){
+        try{
+            Optional<CollegeStudent> collegeStudentOpt = collegeStudentRepository.findById(npm);
+            CollegeStudent collegeStudent = null;
+            if(collegeStudentOpt.isPresent()){
+                collegeStudent =  collegeStudentOpt.get();
+                collegeStudent.setNamaDepan(request.getNamaDepan());
+                collegeStudent.setNamaBelakang(request.getNamaLengkap());
+                collegeStudent.setJurusan(request.getJurusan());
+                collegeStudent.setAngkatan(request.getAngkatan());
+                collegeStudentRepository.save(collegeStudent);
+            }else{
+                //todo throw exception
+            }
+
+            ErrorSchema errorSchema = new ErrorSchema();
+            errorSchema.setSuccessResponse("Sukses Mengubah Data", "Success Update Data");
+            return ApiResponse.<CollegeStudent>builder()
+                    .responseData(collegeStudent)
+                    .errorSchema(errorSchema)
+                    .build();
+        }catch (Exception e)
+        {
+            log.info("Exception : " + e.getMessage());
+            return null;
+        }
+    }
+
+
 }
