@@ -33,7 +33,7 @@ public class NpmGenerator implements IdentifierGenerator {
                 default:
                     break;
             }
-            Optional<CollegeStudent> getDataOpt = collegeStudentRepository.getListStudentGroupByJurusan(jurusanCode);
+            Optional<CollegeStudent> getDataOpt = collegeStudentRepository.findStudentByKodeJurusan(String.valueOf(jurusanCode));
             String last5DigitsNPM;
             if(getDataOpt.isPresent()){
                 CollegeStudent getData = getDataOpt.get();
