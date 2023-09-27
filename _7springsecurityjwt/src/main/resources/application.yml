@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver #Nama Kelas Driver JDBC
+    url: jdbc:postgresql://localhost:5432/jwt_security #URL JDBC Akses Database
+    username: postgres # Nama Pengguna
+    password: password # Kata sandi
+  jpa:
+    hibernate:
+      ddl-auto: create-drop #Strategi hibernate untuk mnegelola skema database
+    show-sql: true #log sql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true # Menghasilkan performantaan SQL yang dihasilkan
+    database: postgresql # Jenis Database
+    database-platform: org.hibernate-dialect.PostgreSQLDialect # Konfigurasi dialect hibernate untuk PostGreSQL
