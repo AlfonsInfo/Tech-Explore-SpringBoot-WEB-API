@@ -1,4 +1,4 @@
-package belajar.springboot.auth;
+package belajar.springboot.auth.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
+public class RegisterRequest {
+
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
+
 }

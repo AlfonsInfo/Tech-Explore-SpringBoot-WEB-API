@@ -1,4 +1,4 @@
-package belajar.springboot.auth;
+package belajar.springboot.auth.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -44,6 +44,7 @@ public class ApplicationConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        System.out.println("Masuk ke sini");
         return config.getAuthenticationManager();
     }
 

@@ -1,5 +1,8 @@
-package belajar.springboot.auth;
+package belajar.springboot.auth.service;
 
+import belajar.springboot.auth.dto.AuthenticateResponse;
+import belajar.springboot.auth.dto.AuthenticationRequest;
+import belajar.springboot.auth.dto.RegisterRequest;
 import belajar.springboot.configuration.JwtService;
 import belajar.springboot.user.Role;
 import belajar.springboot.user.User;
@@ -37,9 +40,11 @@ public class AuthenticationService {
 
     public AuthenticateResponse authenticate(AuthenticationRequest request)
     {
+        System.out.println("Authentication Manager");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())
         );
+        System.out.println("End Of Authentication Manager");
 
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
