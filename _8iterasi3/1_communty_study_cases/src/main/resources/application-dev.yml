@@ -1,0 +1,48 @@
+spring:
+  # Spring Data Source (JPA)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/community_app
+    username: postgres
+    password: password
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    hibernate:
+      ddl-auto:  update
+    show-sql: true
+  # Spring SMTP Mail
+  mail:
+    host: smtp.gmail.com
+    username: itsmealfons@gmail.com
+    password: aejgiwolrsvaaicd
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+#  security:
+#    user:
+#      name: user
+#      password: password
+info:
+  app:
+    name: Community_App
+    description: A Backend services for apps that support non workings activity on
+    version: 0.0.1
+
+server:
+  port: 8095
+
+
+
+# Spring Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude:
+          - health
+
+
