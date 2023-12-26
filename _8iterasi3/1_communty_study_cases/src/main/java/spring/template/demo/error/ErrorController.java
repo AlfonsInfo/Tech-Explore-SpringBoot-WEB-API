@@ -1,22 +1,29 @@
 package spring.template.demo.error;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import spring.template.demo.entities.dto.BaseResponse;
-import spring.template.demo.entities.dto.ErrorMessageResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
 import spring.template.demo.repository.ErrorRepository;
 import spring.template.demo.utils.exception.CustomException;
 import spring.template.demo.utils.exception.CustomValidationException;
+
+import java.util.Locale;
 
 @RestControllerAdvice
 public class ErrorController {
 
     @Autowired
     ErrorRepository errorRepository;
+
+    @Autowired
+    MessageSource messageSource;
+
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<String> customExceptionHandling(CustomException customException)
@@ -27,17 +34,14 @@ public class ErrorController {
 
 
     @ExceptionHandler(CustomValidationException.class)
-    public BaseResponse validationExceptionHandling (CustomValidationException validationException)
+    public BaseResponse validationExceptionHandling (CustomValidationException validationException, Locale locale)
     {
         ErrorSchema errorSchema = new ErrorSchema();
-
-        //untuk sementara
-        Error error = errorRepository.findById("error").get();
-        ErrorMessageResponse errorMessageResponse= new ErrorMessageResponse(error.errIndMsg , validationException.getMessage());
+        String errorMessage = messageSource.getMessage("error.message",null,locale);
 
         //SET ERROR SCHEMA VALUES
         errorSchema.setErrorCode("400");
-        errorSchema.setErrorMessageResponse(errorMessageResponse);
+        errorSchema.setErrorMessage(errorMessage);
 
         return BaseResponse
                 .builder()

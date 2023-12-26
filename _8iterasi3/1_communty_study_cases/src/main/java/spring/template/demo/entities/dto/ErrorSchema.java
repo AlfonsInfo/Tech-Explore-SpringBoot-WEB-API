@@ -5,16 +5,11 @@ import lombok.Data;
 @Data
 public class ErrorSchema {
     private String errorCode;
-    private ErrorMessageResponse errorMessageResponse;
+    private String errorMessage;
 
     public void setSuccessResponse()
     {
         this.errorCode = "200";
-        this.errorMessageResponse = new ErrorMessageResponse("Sukses", "Success");
-    }
-
-    public void setSuccessResponse(String errorCode, String indMessage, String engMessage){
-        this.errorCode = errorCode ;
-        this.errorMessageResponse = new ErrorMessageResponse(indMessage, engMessage);
+        this.errorMessage = "Sukses";
     }
 }
