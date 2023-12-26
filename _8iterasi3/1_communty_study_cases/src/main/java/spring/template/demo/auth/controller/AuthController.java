@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.template.demo.auth.dto.request.RegisterRequest;
-import spring.template.demo.auth.dto.response.RegisterResponse;
 import spring.template.demo.auth.service.AuthService;
-import spring.template.demo.entities.dto.ApiResponse;
+import spring.template.demo.entities.constant.Constant;
 import spring.template.demo.entities.dto.BaseResponse;
 
-@RequestMapping(path = "/api/user") // ** prefix endpoints with api */
+@RequestMapping(path = Constant.EndPoint.USER_PREFIX) // ** prefix endpoints with api */
 @RestController
 public class AuthController{
 
@@ -22,7 +21,7 @@ public class AuthController{
     }
 
 
-    @PostMapping(value = "/register",
+    @PostMapping(value = Constant.EndPoint.REGISTER_PATH,
     consumes = {"application/json"})
     public BaseResponse register(@RequestBody RegisterRequest request)
     {

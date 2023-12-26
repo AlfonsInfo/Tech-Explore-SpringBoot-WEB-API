@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import spring.template.demo.auth.dto.request.RegisterRequest;
 import spring.template.demo.auth.dto.response.RegisterResponse;
 import spring.template.demo.auth.entities.User;
-import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
 import spring.template.demo.repository.UserRepository;
@@ -56,10 +55,7 @@ public class AuthService {
             userRepository.save(user);
 
             //Set error Schema
-            errorSchema.setSuccessResponse("Sukses", "Success");
-
-            //response data
-            responseData.setMessage("TEST");
+            errorSchema.setSuccessResponse();
 
             //return via template
             BaseResponse response = new BaseResponse();
