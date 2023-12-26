@@ -2,7 +2,6 @@ package spring.template.demo.error;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,12 +13,10 @@ import spring.template.demo.utils.exception.CustomException;
 import spring.template.demo.utils.exception.CustomValidationException;
 
 import java.util.Locale;
+import java.util.Objects;
 
 @RestControllerAdvice
 public class ErrorController {
-
-    @Autowired
-    ErrorRepository errorRepository;
 
     @Autowired
     MessageSource messageSource;
@@ -38,6 +35,9 @@ public class ErrorController {
     {
         ErrorSchema errorSchema = new ErrorSchema();
         String errorMessage = messageSource.getMessage("error.message",null,locale);
+        if(Objects.equals(locale.getLanguage(), Locale.US.getLanguage())){
+            errorMessage = validationException.getMessage();
+        }
 
         //SET ERROR SCHEMA VALUES
         errorSchema.setErrorCode("400");
