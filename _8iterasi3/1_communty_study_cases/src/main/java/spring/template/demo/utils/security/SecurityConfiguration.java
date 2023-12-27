@@ -24,17 +24,19 @@ public class SecurityConfiguration{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(httpSecurityCsrfConfigurer ->httpSecurityCsrfConfigurer.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        //Need Authentication
+                        //* permit first (testing : disable authorization)
+                        .requestMatchers(
+                                Constant.EndPoint.FAQ_PREFIX,
+                                Constant.EndPoint.FULL_REGISTER,
+                                "/error"
+                        ).permitAll()
+                        //* need authenticated
                         .requestMatchers(
                                 Constant.EndPoint.NEED_AUTHENTICATED
                         ).authenticated()
-                        // Permitted Path
-                        .requestMatchers(
-                                Constant.EndPoint.FAQ_PREFIX
-                        ).permitAll()
                 )
-                .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
