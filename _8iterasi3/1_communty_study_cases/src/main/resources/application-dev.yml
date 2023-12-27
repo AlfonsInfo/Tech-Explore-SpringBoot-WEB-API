@@ -21,7 +21,11 @@ spring:
           auth: true
           starttls:
             enable: true
-#  security:
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
 #    user:
 #      name: user
 #      password: password
