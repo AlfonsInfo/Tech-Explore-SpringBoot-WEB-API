@@ -16,7 +16,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
     private LocaleInterceptor localeInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeInterceptor);
         registry.addInterceptor(channelInterceptor);
+        registry.addInterceptor(localeInterceptor);
     }
 }

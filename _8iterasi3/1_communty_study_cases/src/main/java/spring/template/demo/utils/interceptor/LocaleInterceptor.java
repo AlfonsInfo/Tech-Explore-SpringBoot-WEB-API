@@ -17,7 +17,6 @@ public class LocaleInterceptor implements HandlerInterceptor {
     @Autowired
     private LoggingUtils loggingUtils;
 
-
     @Override
     public boolean preHandle(HttpServletRequest request,  HttpServletResponse response, Object handler) {
         log.info(loggingUtils.logTemplate("LOCALE INTERCEPTOR","START FUNCTION"));
