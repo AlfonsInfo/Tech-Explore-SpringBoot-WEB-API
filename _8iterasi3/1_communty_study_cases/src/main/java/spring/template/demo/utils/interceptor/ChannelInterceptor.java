@@ -27,8 +27,9 @@ public class ChannelInterceptor  implements HandlerInterceptor {
         log.info(loggingUtils.logTemplate("CHANNEL INTERCEPTOR", "START FUNCTION"));
         String requestMethod = request.getMethod();
         String path = request.getServletPath();
+        log.info(loggingUtils.logTemplate("PATH " + path, "REQUEST METHOD " + requestMethod));
         if(channelRepository.existsByPathAndRequestMethod(path,requestMethod)){
-            log.info(loggingUtils.logTemplate("INTERCEPTOR", "START FUNCTION"));
+            log.info(loggingUtils.logTemplate("INTERCEPTOR", "SUCCESS"));
             return true;
         }else{
             throw new CustomValidationException("Channel id" , "Doesn't Exist");
