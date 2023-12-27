@@ -1,4 +1,4 @@
-package spring.template.demo.error;
+package spring.template.demo.masterdata.error;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package spring.template.demo.error;
+package spring.template.demo.masterdata.error;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
