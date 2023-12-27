@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import spring.template.demo.entities.constant.Constant;
 
 @EnableWebSecurity
 @Configuration
@@ -23,12 +24,17 @@ public class SecurityConfiguration{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/blog/**").permitAll()
-                        .anyRequest().authenticated()
+                        //Need Authentication
+                        .requestMatchers(
+                                Constant.EndPoint.NEED_AUTHENTICATED
+                        ).authenticated()
+                        // Permitted Path
+                        .requestMatchers(
+                                Constant.EndPoint.FAQ_PREFIX
+                        ).permitAll()
                 )
-                .rememberMe(Customizer.withDefaults())  
+                .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
