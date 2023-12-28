@@ -1,25 +1,28 @@
 package spring.template.demo.utils.security;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import spring.template.demo.entities.constant.Constant;
 
+
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration{
+@Profile("dev")
+public class CustomJdbcSecurityConfiguration {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());
-        return manager;
-    }
+    /*   Doesn't needed
+    **    @Bean
+    **    public UserDetailsService userDetailsService(DataSource dataSource) {
+    **        return  new CommunityUserDetails();
+    **    }
+    **/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,5 +43,10 @@ public class SecurityConfiguration{
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean //Deal with password
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 }

@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import spring.template.demo.auth.dto.request.LoginRequest;
 import spring.template.demo.auth.dto.request.RegisterRequest;
+import spring.template.demo.auth.dto.response.LoginResponse;
 import spring.template.demo.auth.service.AuthService;
 import spring.template.demo.entities.constant.Constant;
+import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
 
 @RequestMapping(path = Constant.EndPoint.USER_PREFIX) // ** prefix endpoints with api */
@@ -25,8 +28,13 @@ public class AuthController{
     consumes = {"application/json"})
     public BaseResponse register(@RequestBody RegisterRequest request)
     {
-        // Security Header Checker
         return authService.register(request);
+    }
+
+
+    @PostMapping(value =  Constant.EndPoint.LOGIN_PATH)
+    public ApiResponse<LoginResponse> login(@RequestBody LoginRequest request){
+        return authService.login(request);
     }
 
 }

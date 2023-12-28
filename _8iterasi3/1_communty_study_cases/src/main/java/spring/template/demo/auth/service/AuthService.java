@@ -1,13 +1,17 @@
 package spring.template.demo.auth.service;
 
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import spring.template.demo.auth.dto.request.LoginRequest;
 import spring.template.demo.auth.dto.request.RegisterRequest;
+import spring.template.demo.auth.dto.response.LoginResponse;
 import spring.template.demo.auth.dto.response.RegisterResponse;
 import spring.template.demo.auth.entities.User;
+import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
 import spring.template.demo.repository.UserRepository;
@@ -63,4 +67,20 @@ public class AuthService {
             return response;
     }
 
+
+    @Transactional
+    public ApiResponse<LoginResponse> login(LoginRequest request){
+
+        ErrorSchema errorSchema = new ErrorSchema();
+        errorSchema.setSuccessResponse();
+
+        LoginResponse loginResponse = new LoginResponse();
+
+        // Prepare for response data
+        ApiResponse<LoginResponse> response = new ApiResponse<>();
+        response.setErrorSchema(errorSchema);
+        response.setResponseData(loginResponse);
+
+        return response;
+    }
 }
