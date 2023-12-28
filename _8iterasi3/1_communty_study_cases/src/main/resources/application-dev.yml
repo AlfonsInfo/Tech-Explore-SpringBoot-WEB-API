@@ -49,4 +49,9 @@ management:
         exclude:
           - health
 
-
+google:
+  recaptcha:
+    key:
+      site: 6Ldq1z4pAAAAAHZ-Y8WrM0Sgn37aFWzhMPPvaCre
+      secret: 6Ldq1z4pAAAAAPHl_Qp0EaLoLrwrXRQLYS6WNh5y
+      score-threshold: 0.5

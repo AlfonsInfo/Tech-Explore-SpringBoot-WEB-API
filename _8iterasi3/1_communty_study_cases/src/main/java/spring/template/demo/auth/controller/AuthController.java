@@ -1,5 +1,6 @@
 package spring.template.demo.auth.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,22 +13,28 @@ import spring.template.demo.auth.service.AuthService;
 import spring.template.demo.entities.constant.Constant;
 import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
+import spring.template.demo.nonmasterdata.captcha.CaptchaService;
 
 @RequestMapping(path = Constant.EndPoint.USER_PREFIX) // ** prefix endpoints with api */
 @RestController
 public class AuthController{
 
     private final AuthService authService;
+    private final CaptchaService captchaService;
     @Autowired
-    public AuthController (AuthService authService){
+    public AuthController (AuthService authService, CaptchaService captchaService){
+
         this.authService = authService;
+        this.captchaService = captchaService;
     }
 
 
     @PostMapping(value = Constant.EndPoint.REGISTER_PATH,
     consumes = {"application/json"})
-    public BaseResponse register(@RequestBody RegisterRequest request)
+    public BaseResponse register(@RequestBody RegisterRequest request, HttpServletRequest httpServletRequest)
     {
+        String response = httpServletRequest.getParameter("g-recaptcha-response");
+        captchaService.processRecaptcha(response);
         return authService.register(request);
     }
 

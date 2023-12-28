@@ -14,6 +14,7 @@ import spring.template.demo.auth.entities.User;
 import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
+import spring.template.demo.nonmasterdata.captcha.CaptchaService;
 import spring.template.demo.repository.UserRepository;
 import spring.template.demo.utils.CommonValidator;
 import spring.template.demo.utils.LoggingUtils;
