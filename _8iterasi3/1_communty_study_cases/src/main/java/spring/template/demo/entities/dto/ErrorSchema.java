@@ -3,6 +3,7 @@ package spring.template.demo.entities.dto;
 import lombok.Data;
 
 @Data
+
 public class ErrorSchema {
     private String errorCode;
     private String errorMessage;

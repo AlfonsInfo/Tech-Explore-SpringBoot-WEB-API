@@ -7,23 +7,18 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import spring.template.demo.entities.constant.Constant;
+
+import java.security.SecureRandom;
 
 
 @EnableWebSecurity
 @Configuration
 @Profile("dev")
 public class CustomJdbcSecurityConfiguration {
-
-    /*   Doesn't needed
-    **    @Bean
-    **    public UserDetailsService userDetailsService(DataSource dataSource) {
-    **        return  new CommunityUserDetails();
-    **    }
-    **/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -34,6 +29,7 @@ public class CustomJdbcSecurityConfiguration {
                         .requestMatchers(
                                 Constant.EndPoint.FAQ_PREFIX,
                                 Constant.EndPoint.FULL_REGISTER,
+                                Constant.EndPoint.FULL_LOGIN,
                                 "/error"
                         ).permitAll()
                         //* need authenticated
@@ -48,6 +44,9 @@ public class CustomJdbcSecurityConfiguration {
 
     @Bean //Deal with password
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        BCryptPasswordEncoder.BCryptVersion bcryptVersion = BCryptPasswordEncoder.BCryptVersion.$2Y;
+        SecureRandom salt = new SecureRandom();
+        int strengthFactorComplexity = 31;
+        return new BCryptPasswordEncoder(bcryptVersion, strengthFactorComplexity,salt);
     }
 }

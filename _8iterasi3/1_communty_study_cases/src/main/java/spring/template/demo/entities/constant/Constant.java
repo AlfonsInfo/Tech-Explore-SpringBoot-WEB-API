@@ -15,6 +15,7 @@ public class Constant {
         public static final String NEED_AUTHENTICATED = "/api/v1/**";
 
         public static final String FULL_REGISTER = USER_PREFIX + REGISTER_PATH;
+        public static final String FULL_LOGIN = USER_PREFIX + LOGIN_PATH;
         public static final String ERROR = "/error";
     }
 }

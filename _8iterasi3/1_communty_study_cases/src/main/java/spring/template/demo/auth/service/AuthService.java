@@ -1,9 +1,9 @@
 package spring.template.demo.auth.service;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.template.demo.auth.dto.request.LoginRequest;
@@ -14,10 +14,12 @@ import spring.template.demo.auth.entities.User;
 import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.BaseResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
-import spring.template.demo.nonmasterdata.captcha.CaptchaService;
 import spring.template.demo.repository.UserRepository;
 import spring.template.demo.utils.CommonValidator;
 import spring.template.demo.utils.LoggingUtils;
+import spring.template.demo.utils.exception.CustomValidationException;
+
+import java.util.List;
 
 @Service // * Spring framework stereotyp
 @Slf4j //* By lombok
@@ -27,12 +29,15 @@ public class AuthService {
     private final UserRepository userRepository;
     private final CommonValidator commonValidator;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AuthService(LoggingUtils loggingUtils, UserRepository userRepository, CommonValidator commonValidator)
+    public AuthService(LoggingUtils loggingUtils, UserRepository userRepository, CommonValidator commonValidator, PasswordEncoder passwordEncoder)
     {
         this.loggingUtils = loggingUtils;
         this.userRepository = userRepository;
         this.commonValidator = commonValidator;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -50,12 +55,15 @@ public class AuthService {
             //Validation
             commonValidator.validate(request);
 
+            //decoding password
+            String hashPassword = passwordEncoder.encode(request.getPassword());
+
             User user = User
                     .builder()
                     .username(request.getUsername())
                     .fullName(request.getFullName())
                     .email(request.getEmail())
-                    .password(request.getPassword())
+                    .password(hashPassword)
                     .build();
             userRepository.save(user);
 
@@ -71,6 +79,14 @@ public class AuthService {
 
     @Transactional
     public ApiResponse<LoginResponse> login(LoginRequest request){
+
+        List<User> user =  userRepository.findByEmailOrUsername(request.getUsername(),request.getUsername());
+
+        if(user.isEmpty())
+            throw new CustomValidationException("Username dan Password Salah"); //change to throw exception
+
+        if(!passwordEncoder.matches(request.getPassword(),user.get(0).getPassword()))
+            throw new CustomValidationException("Username dan Password Salah"); //change to throw exception
 
         ErrorSchema errorSchema = new ErrorSchema();
         errorSchema.setSuccessResponse();
