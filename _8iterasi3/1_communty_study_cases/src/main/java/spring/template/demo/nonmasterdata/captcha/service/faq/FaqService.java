@@ -1,14 +1,12 @@
-package spring.template.demo.nonmasterdata.faq;
+package spring.template.demo.nonmasterdata.captcha.service.faq;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import spring.template.demo.entities.dto.ApiResponse;
 import spring.template.demo.entities.dto.ErrorSchema;
 import spring.template.demo.repository.FaqRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class FaqService {

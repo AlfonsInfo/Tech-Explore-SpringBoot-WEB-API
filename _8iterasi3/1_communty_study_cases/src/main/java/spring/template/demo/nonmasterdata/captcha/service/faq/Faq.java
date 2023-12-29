@@ -1,4 +1,4 @@
-package spring.template.demo.nonmasterdata.faq;
+package spring.template.demo.nonmasterdata.captcha.service.faq;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

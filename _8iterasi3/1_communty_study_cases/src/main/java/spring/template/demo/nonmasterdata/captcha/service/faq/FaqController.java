@@ -1,4 +1,4 @@
-package spring.template.demo.nonmasterdata.faq;
+package spring.template.demo.nonmasterdata.captcha.service.faq;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
