@@ -5,7 +5,7 @@ import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.template.demo.utils.exception.CustomValidationException;
+import spring.template.demo.common.exception.CustomValidationException;
 
 import java.util.Optional;
 import java.util.Set;

@@ -1,38 +1,33 @@
 package spring.template.demo.masterdata.error;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import spring.template.demo.entities.dto.BaseResponse;
-import spring.template.demo.entities.dto.ErrorSchema;
-import spring.template.demo.repository.ErrorRepository;
-import spring.template.demo.utils.exception.CustomException;
-import spring.template.demo.utils.exception.CustomValidationException;
+import spring.template.demo.common.dto.BaseResponse;
+import spring.template.demo.common.dto.ErrorSchema;
+import spring.template.demo.common.exception.CustomValidationException;
 
 import java.util.Locale;
 import java.util.Objects;
 
 @RestControllerAdvice
+@Slf4j
 public class ErrorController {
 
     @Autowired
     MessageSource messageSource;
 
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<String> customExceptionHandling(CustomException customException)
-    {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("error test");
-    }
 
 
     @ExceptionHandler(CustomValidationException.class)
-    public BaseResponse validationExceptionHandling (CustomValidationException validationException, Locale locale)
+    public ResponseEntity<Object> validationExceptionHandling (CustomValidationException validationException, Locale locale)
     {
+        log.error(validationException.getMessage(), validationException);
         ErrorSchema errorSchema = new ErrorSchema();
         String errorMessage = messageSource.getMessage("error.message",null,locale);
         if(Objects.equals(locale.getLanguage(), Locale.US.getLanguage())){
@@ -40,12 +35,12 @@ public class ErrorController {
         }
 
         //SET ERROR SCHEMA VALUES
+        BaseResponse baseResponse = new BaseResponse();
+
         errorSchema.setErrorCode("400");
         errorSchema.setErrorMessage(errorMessage);
+        baseResponse.setErrorSchema(errorSchema);
 
-        return BaseResponse
-                .builder()
-                .errorSchema(errorSchema)
-                .build();
+        return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
 }

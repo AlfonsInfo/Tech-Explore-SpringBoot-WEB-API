@@ -1,4 +1,4 @@
-package spring.template.demo.auth.controller;
+package spring.template.demo.nonmasterdata.auth.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.template.demo.auth.dto.request.LoginRequest;
-import spring.template.demo.auth.dto.request.RegisterRequest;
-import spring.template.demo.auth.dto.response.LoginResponse;
-import spring.template.demo.auth.service.AuthService;
-import spring.template.demo.entities.constant.Constant;
-import spring.template.demo.entities.dto.ApiResponse;
-import spring.template.demo.entities.dto.BaseResponse;
+import spring.template.demo.nonmasterdata.auth.dto.request.LoginRequest;
+import spring.template.demo.nonmasterdata.auth.dto.request.RegisterRequest;
+import spring.template.demo.nonmasterdata.auth.dto.response.LoginResponse;
+import spring.template.demo.nonmasterdata.auth.service.AuthService;
+import spring.template.demo.common.constant.Constant;
+import spring.template.demo.common.dto.ApiResponse;
+import spring.template.demo.common.dto.BaseResponse;
 
 @RequestMapping(path = Constant.EndPoint.USER_PREFIX) // ** prefix endpoints with api */
 @RestController
@@ -44,5 +44,4 @@ public class AuthController{
     }
 
 }
-
 
