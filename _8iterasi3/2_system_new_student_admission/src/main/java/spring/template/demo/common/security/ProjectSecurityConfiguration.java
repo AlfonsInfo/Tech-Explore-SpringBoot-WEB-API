@@ -11,13 +11,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import spring.template.demo.common.constant.Constant;
+import spring.template.demo.common.filter.JWTTokenGeneratorFilter;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -34,7 +37,7 @@ public class ProjectSecurityConfiguration {
 
         http
             .securityContext(context -> context .requireExplicitSave(false))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .cors(corsConfigurer ->corsConfigurer.configurationSource(corsConfigurationSource()))
             .csrf(csrfConfigurer -> csrfConfigurer.csrfTokenRequestHandler(requestHandler))
             .authorizeHttpRequests(authorize ->
@@ -42,6 +45,7 @@ public class ProjectSecurityConfiguration {
                             .permitAll()
                         .requestMatchers(Constant.EndPoint.NEED_AUTHENTICATED).authenticated()
             )
+            .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
             .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -63,6 +67,7 @@ public class ProjectSecurityConfiguration {
         corsConfiguration.setAllowedMethods(List.of("GET", "POST"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(List.of("*"));
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
         corsConfiguration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

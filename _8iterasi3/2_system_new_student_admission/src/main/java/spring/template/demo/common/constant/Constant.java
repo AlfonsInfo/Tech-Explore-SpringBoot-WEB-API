@@ -1,5 +1,7 @@
 package spring.template.demo.common.constant;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 public class Constant {
 
     public static class EndPoint{
@@ -17,5 +19,12 @@ public class Constant {
         public static final String FULL_REGISTER = USER_PREFIX + REGISTER_PATH;
         public static final String FULL_LOGIN = USER_PREFIX + LOGIN_PATH;
         public static final String ERROR = "/error";
+    }
+
+    @ConfigurationProperties(prefix = "configuration.security.jwt")
+    public static class SecurityConstant{
+        public static String SECRET_KEY;
+        public static String HTTP_HEADER_KEY;
+
     }
 }
