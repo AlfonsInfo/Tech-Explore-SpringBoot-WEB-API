@@ -12,4 +12,4 @@
 12. Spring GraphQL
 12. Spring Redis
 13. Spring ??
-14. Spring Testing
+14. Spring Testing (mockito)
