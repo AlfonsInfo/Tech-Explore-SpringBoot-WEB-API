@@ -1,0 +1,57 @@
+  spring:
+    # Spring Data Source (JPA)
+    datasource:
+      url: jdbc:postgresql://localhost:5432/sandbox
+      username: postgres
+      password: password
+      type: com.zaxxer.hikari.HikariDataSource
+    jpa:
+      hibernate:
+        ddl-auto:  update
+      show-sql: true
+    graphql:
+      graphiql:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+#    main:
+#      allow-bean-definition-overriding: true
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: mappings
+
+  springdoc:
+    api-docs:
+      path: /v1/docs
+
+  server:
+    port: 8095
+
+#
+#    spring.data.redis.host = localhost
+#    spring.data.redis.port = 6379
+#    spring.data.redis.client-type = lettuce
+#    #jedis
+#    spring.data.redis.timeout=5s
+#    spring.data.redisconnect-timeout=10s
+#    spring.data.redis.database=0
+
+#  logging:
+#    level:
+#      root: DEBUG
+#    org.springframework: ERROR
+#    your.package.name: ERROR
+
+  #  Mailing
+  #  spring.mail.host=smtp.gmail.com
+  #  spring.mail.port=587
+  #  spring.mail.username=<login user to smtp server>
+  #  spring.mail.password=<login password to smtp server>
+  #  spring.mail.properties.mail.smtp.auth=true
+  #  spring.mail.properties.mail.smtp.starttls.enable=true
