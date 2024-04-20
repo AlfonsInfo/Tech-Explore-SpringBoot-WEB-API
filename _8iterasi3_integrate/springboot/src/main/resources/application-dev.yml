@@ -12,6 +12,11 @@
     graphql:
       graphiql:
         enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 #    main:
 #      allow-bean-definition-overriding: true
 
@@ -28,6 +33,20 @@
   server:
     port: 8095
 
+#
+#    spring.data.redis.host = localhost
+#    spring.data.redis.port = 6379
+#    spring.data.redis.client-type = lettuce
+#    #jedis
+#    spring.data.redis.timeout=5s
+#    spring.data.redisconnect-timeout=10s
+#    spring.data.redis.database=0
+
+#  logging:
+#    level:
+#      root: DEBUG
+#    org.springframework: ERROR
+#    your.package.name: ERROR
 
   #  Mailing
   #  spring.mail.host=smtp.gmail.com
