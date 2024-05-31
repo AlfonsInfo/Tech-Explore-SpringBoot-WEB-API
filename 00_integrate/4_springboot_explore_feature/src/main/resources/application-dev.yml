@@ -32,6 +32,11 @@
 
   server:
     port: 8095
+  gcp:
+    firebase:
+      service-account: classpath:firebase-service-account.json
+
+
 
 #
 #    spring.data.redis.host = localhost
