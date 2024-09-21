@@ -1,0 +1,15 @@
+
+ˆ
+java:S6485'"mReplace this call to the constructor with the better suited static method HashMap.newHashMap(int numMappings)(‹‚Óùÿÿÿÿ
+@
+java:S1068"+Remove this unused "success" private field.(ÉšÒ	
+E
+java:S1068"/Remove this unused "challengeTs" private field.(ªûÁĞ
+@
+java:S1068"*Remove this unused "action" private field.(ÃĞ”“
+B
+java:S1068",Remove this unused "hostname" private field.(Ûæ¾Õ
+D
+java:S1068")Remove this unused "score" private field.(·”šüşÿÿÿÿ
+I
+java:S1068".Remove this unused "errorCodes" private field.(í“ì‚úÿÿÿÿ
