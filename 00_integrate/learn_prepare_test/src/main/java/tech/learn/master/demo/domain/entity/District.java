@@ -1,9 +1,8 @@
 package tech.learn.master.demo.domain.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -11,13 +10,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Province extends BaseTimestampEntity{
+public class District extends BaseTimestampEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String provinceName;
-
-    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
-    private Set<City> city;
+    private Long id;
+    private String districtName;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 }

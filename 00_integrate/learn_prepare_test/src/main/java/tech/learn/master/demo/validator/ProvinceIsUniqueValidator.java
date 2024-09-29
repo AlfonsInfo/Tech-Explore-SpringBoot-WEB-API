@@ -4,20 +4,20 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import tech.learn.master.demo.domain.dto.province.ProvinceUpsertDto;
+import tech.learn.master.demo.domain.dto.province.ProvinceUpsertRequestDto;
 import tech.learn.master.demo.exception.DuplicateException;
 import tech.learn.master.demo.repository.ProvinceRepository;
 import tech.learn.master.demo.validator.constraint.ProvinceIsUnique;
 
 
 @RequiredArgsConstructor
-public class ProvinceIsUniqueValidator implements ConstraintValidator<ProvinceIsUnique, ProvinceUpsertDto> {
+public class ProvinceIsUniqueValidator implements ConstraintValidator<ProvinceIsUnique, ProvinceUpsertRequestDto> {
     private final ProvinceRepository provinceRepository;
 
 
     @SneakyThrows
     @Override
-    public boolean isValid(ProvinceUpsertDto value, ConstraintValidatorContext context) {
+    public boolean isValid(ProvinceUpsertRequestDto value, ConstraintValidatorContext context) {
         //if group post validation
         if(value.getProvinceId() != null){
             if(provinceRepository.existsByProvinceNameIgnoreCaseAndIdNot(value.getProvinceName(),value.getProvinceId())){

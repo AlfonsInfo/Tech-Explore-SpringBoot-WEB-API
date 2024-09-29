@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Slf4j
 public class ProductService {
 
     //repository
@@ -41,6 +40,7 @@ public class ProductService {
 
     @Transactional
     public ResMessageDto<Object> createProduct(ReqInsertProductDto request){
+       
         //mapping
         CategoryEntity categoryEntity = categoryMapperService.mapIntoCategoryEntity(request.getCategoryId());
         ProductEntity productEntity = productMapperService.mapIntoProductEntity(request,categoryEntity);
